@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christmas Counter</title>
+    <style>
+        img {
+            height: 200px;
+            margin: 0 auto;
+            display: block;
+            align-items: center;
+        }
+
+        body {
+            font-family: sans-serif;
+            text-align: center;
+            margin-bottom: 60px;
+
+            transition: background-color 0.3s;
+            /*make it impossible to scroll*/
+            overflow-x: hidden;
+            overflow-y: hidden;
+            background-color: red;
+
+
+        }
+
+        html {
+            scroll-behavior: smooth;
+            height: 100%;
+            align-content: center;
+        }
+
+
+
+
+        .christmas-background {
+            background-color: #e63946;
+            /* Christmas red background color */
+            color: black;
+            /* White text color for better contrast */
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-top: 0;
+            color: white;
+        }
+
+        p {
+            font-size: 20px;
+            margin-top: 26px;
+            color: white;
+        }
+
+        #video-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 315px;
+            /* De hoogte van de video */
+            margin-top: 20px;
+            /* Aanpassen zoals nodig */
+        }
+
+        #video {
+            display: none;
+        }
+
+        .timer {
+            font-size: 25px;
+            color: white;
+        }
+
+        surprise-message {
+            color: white;
+        }
+
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+            margin: 0 auto;
+        }
+
+
+        /* The slider */
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        input:checked+.slider {
+            background-color: #3af321;
+        }
+
+        input:focus+.slider {
+            box-shadow: 0 0 1px #2196F3;
+        }
+
+        input:checked+.slider:before {
+            -webkit-transform: translateX(26px);
+            -ms-transform: translateX(26px);
+            transform: translateX(26px);
+        }
+
+        /* Rounded sliders */
+        .slider.round {
+            border-radius: 34px;
+        }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+
+        .button-slider {
+            padding: 1rem;
+        }
+
+
+
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: white;
+            /* Adjust background color as needed */
+        }
+
+        .footer p {
+            margin: 0;
+            padding: 20px;
+            font-size: 12px;
+            color: black;
+            align-items: center;
+        }
+
+        .snowflakes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+            /* Add this line to hide overflowing snowflakes */
+        }
+
+        .snowflake {
+            position: absolute;
+            /* Change to absolute positioning */
+            background-color: #fff;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            animation: snowfall linear infinite;
+        }
+
+        @keyframes snowfall {
+            0% {
+                transform: translateY(-100vh) translateX(-100%);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateY(100vh) translateX(calc(-100% + 100vw));
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    
+    <div class="snowflakes"></div>
+    <h1>Activate Christmas</h1>
+    <p>Did Mary conceive Jesus through an intervention of the Holy Spirit? If you really want to know:</p>
+    <p><b>Please Activate Christmas before it's too late</b></p>
+
+    <div class="timer"></div>
+    <div id="button-slider" class="button-slider">
+        <label class="switch" for="toggle-surprise">
+            <input type="checkbox" id="toggle-surprise" onchange="toggleSurprise()">
+            <span class="slider round"></span>
+        </label>
+    </div>
+    <div id="video-container">
+        <iframe width="560" height="315" id="video" display="none"
+            src="https://www.youtube.com/embed/3CWJNqyub3o?si=fTdbSTatymKKeCTN" title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen></iframe>
+    </div>
+
+
+    <div id="surprise-message">
+    </div>
+
+    <footer class="footer">
+        <p>inspired by <u><b>Liam Vandermaesen </b></u></p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous">
+        </script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script>
+        var timer = document.querySelector('.timer');
+
+        setInterval(function () {
+            var now = new Date();
+            var christmas = new Date('2024-12-25');
+            var timeToChristmas = christmas - now;
+
+            var milliseconds = timeToChristmas % 1000;
+            var seconds = Math.floor((timeToChristmas / 1000) % 60);
+            var minutes = Math.floor((timeToChristmas / (1000 * 60)) % 60);
+            var hours = Math.floor((timeToChristmas / (1000 * 60 * 60)) % 24 - 1); /* -1 to account for midnight bc of UTC+1*/
+            var days = Math.floor(timeToChristmas / (1000 * 60 * 60 * 24));
+
+            timer.textContent = 'There are ' + days + ' days ' + hours + ' hours ' + minutes + ' minutes ' + seconds + ' seconds' + ' until Christmas 2023' + ' in Belgium' + '!';
+        }, 1000);
+
+
+        function toggleSurprise() {
+            var textElements = document.querySelectorAll('p, h1');
+            var timerElement = document.querySelector('.timer');
+            var surpriseButton = document.getElementById('toggle-surprise');
+            var imgElement = document.querySelector('img');
+
+            if (surpriseButton.classList.contains('active')) {
+                surpriseButton.classList.remove('active');
+            } else {
+                surpriseButton.classList.add('active');
+            }
+
+            if (surpriseButton.classList.contains('active')) {
+                showSurprise();
+                document.body.classList.add('christmas-background');
+                createSnowflakes();
+
+                // Hide text elements, timer, and img
+                textElements.forEach(function (element) {
+                    element.style.display = 'none';
+                });
+                timerElement.style.display = 'none';
+                imgElement.style.display = 'none';
+            } else {
+                hideSurprise();
+                document.body.classList.remove('christmas-background');
+                removeSnowflakes();
+
+                // Show text elements, timer, and img
+                textElements.forEach(function (element) {
+                    element.style.display = 'block';
+                });
+                timerElement.style.display = 'block';
+                document.getElementById('video').style.display = 'block';  // Corrected line
+                imgElement.style.display = 'block';
+                video.style.display = 'none';
+            }
+        }
+
+
+        function hideSurprise() {
+            var surpriseMessage = document.getElementById('surprise-message');
+            surpriseMessage.style.display = 'none';
+            var video = document.getElementById('video');
+            video.style.display = 'none';
+        }
+
+        function showSurprise() {
+            var surpriseMessage = document.getElementById('surprise-message');
+            var video = document.getElementById('video');
+
+            var surprises = [
+                "Congratulations! You're awesome!",
+                "You've found a hidden treasure!",
+                "Surprise! Life is beautiful!",
+                "You're a star! 🌟",
+                "Enjoy the little things in life!",
+                "You are loved!",
+                "Keep smiling! 😊"
+            ];
+
+            // Pick a random surprise message
+            var randomIndex = Math.floor(Math.random() * surprises.length);
+            var randomSurprise = surprises[randomIndex];
+
+            // Display the surprise message
+            surpriseMessage.innerHTML = '<p>' + randomSurprise + '</p>';
+
+
+            // Make sure the existing snowflakes continue falling
+            createSnowflakes();
+
+            surpriseMessage.style.display = 'block';
+            document.getElementById('video').style.display = 'block';
+        }
+
+
+        function createSnowflakes() {
+            var snowflakesContainer = document.querySelector('.snowflakes');
+            for (var i = 0; i < 50; i++) {
+                var snowflake = document.createElement('div');
+                snowflake.className = 'snowflake';
+                snowflake.style.left = Math.random() * window.innerWidth + 'px';
+                snowflake.style.top = Math.random() * window.innerHeight + 'px'; // Use top instead of left
+                snowflake.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                snowflake.style.animationDelay = -Math.random() * 5 + 's';
+                snowflakesContainer.appendChild(snowflake);
+            }
+        }
+
+        function removeSnowflakes() {
+            var snowflakesContainer = document.querySelector('.snowflakes');
+            snowflakesContainer.innerHTML = '';
+        }
+    </script>
+</body>
+
+</html>
